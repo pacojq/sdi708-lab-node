@@ -1,5 +1,7 @@
 
 module.exports = function(app) {
+
+
     app.get("/canciones", function(req, res) {
 
         var respuesta = "";
@@ -27,4 +29,19 @@ module.exports = function(app) {
         var respuesta = parseInt(req.query.num1) + parseInt(req.query.num2);
         res.send(String(respuesta));
     });
+
+
+
+    app.post("/cancion", function(req, res) {
+        res.send("Canción agregada:"+req.body.nombre +"<br>"
+            +" genero :" +req.body.genero +"<br>"
+            +" precio: "+req.body.precio);
+    });
+
+
+    app.get('/promo*', function (req, res) {
+        res.send('Respuesta patrón promo* ');
+    })
+
+
 };
