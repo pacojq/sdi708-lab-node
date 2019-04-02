@@ -189,6 +189,8 @@ module.exports = function(app, swig, gestorBD) {
     });
 
 
+
+
     function paso1ModificarPortada(files, id, callback){
         if (files.portada != null) {
             var imagen =files.portada;
@@ -202,7 +204,8 @@ module.exports = function(app, swig, gestorBD) {
         } else {
             paso2ModificarAudio(files, id, callback); // SIGUIENTE
         }
-    };
+    }
+
     function paso2ModificarAudio(files, id, callback){
         if (files.audio != null) {
             var audio = files.audio;
@@ -216,7 +219,22 @@ module.exports = function(app, swig, gestorBD) {
         } else {
             callback(true); // FIN
         }
-    };
+    }
+
+
+
+
+
+    app.get('/cancion/eliminar/:id', function (req, res) {
+        var criterio = {"_id" : gestorBD.mongo.ObjectID(req.params.id) };
+        gestorBD.eliminarCancion(criterio,function(canciones){
+            if ( canciones == null ){
+                res.send(respuesta);
+            } else {
+                res.redirect("/publicaciones");
+            }
+        });
+    });
 
 
 

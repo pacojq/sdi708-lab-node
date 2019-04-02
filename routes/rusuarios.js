@@ -29,7 +29,8 @@ module.exports = function(app, swig, gestorBD) {
                 res.send("No identificado: ");
             } else {
                 req.session.usuario = usuarios[0].email;
-                res.send("identificado");
+                //res.send("identificado");
+                res.redirect("/tienda");
             }
         });
     });
@@ -50,11 +51,22 @@ module.exports = function(app, swig, gestorBD) {
             password : seguro
         };
 
-        gestorBD.insertarUsuario(usuario, function(id) {
-            if (id == null){
-                res.send("Error al insertar ");
+        var criterio = {
+            email : req.body.email
+        };
+        gestorBD.obtenerUsuarios(criterio, function(usuarios) {
+
+            // Registrarse
+            if (usuarios == null || usuarios.length == 0) {
+                gestorBD.insertarUsuario(usuario, function (id) {
+                    if (id == null) {
+                        res.send("Error al insertar ");
+                    } else {
+                        res.send('Usuario Insertado ' + id);
+                    }
+                });
             } else {
-                res.send('Usuario Insertado ' + id);
+                res.send("Registro incorrecto: Usuario ya registrado.")
             }
         });
     });
