@@ -6,13 +6,16 @@
 	 <div class="row">
 		<div class="media col-xs-10">
 		  <div class="media-left media-middle">
-			<img class="media-object" src="/portadas/{{ cancion._id.toString() }}.png" >
+			<img style="width: 200px" class="media-object" src="/portadas/{{ cancion._id.toString() }}.png" >
 		  </div>
 		  <div class="media-body">
 			  <h2>{{ cancion.nombre }}</h2>
 			  <p>{{ cancion.autor }}</p>
 			  <p>{{ cancion.genero }}</p>
-			 <button type="button" class="btn btn-primary pull-right">{{ cancion.precio }} €</button>
+
+			  <a class="btn btn-primary pull-right"
+				 href="/cancion/comprar/{{cancion._id.toString()}}">{{ cancion.precio }} €
+			  </a>
 			 <!-- Cambiar el precio por "reproducir" si ya está comprada -->
 		  </div>
 		</div>
