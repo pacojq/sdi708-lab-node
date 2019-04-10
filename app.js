@@ -129,6 +129,8 @@ app.set('crypto',crypto);
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig, gestorBD);
 require("./routes/rcanciones.js")(app, swig, gestorBD);
+require("./routes/rapicanciones.js")(app, gestorBD);
+
 
 
 app.get('/', function (req, res) {
