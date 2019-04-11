@@ -76,9 +76,11 @@ module.exports = function(app, swig, gestorBD) {
                                 var audio = req.files.audio;
                                 audio.mv('public/audios/'+id+'.mp3', function(err) {
                                     if (err) {
-                                        res.send("Error al subir el audio");
+                                        res.redirect("/publicaciones" +
+                                            "?mensaje=Error al subir el audio"+
+                                            "&tipoMensaje=alert-danger ");
                                     } else {
-                                        res.send("Agregada id: "+ id);
+                                        res.redirect("/publicaciones")
                                     }
                                 });
                             }
@@ -114,7 +116,7 @@ module.exports = function(app, swig, gestorBD) {
 
         var criterio = {};
         if( req.query.busqueda != null ){
-            criterio = { "nombre" : {$regex : ".*"+req.query.busqueda+".*"} };
+            criterio = { "nombre" : {$regex : ".*"+req.query.busqueda+".*", $options: "si"} };
         }
 
         var pg = parseInt(req.query.pg); // Es String !!!
@@ -196,9 +198,11 @@ module.exports = function(app, swig, gestorBD) {
             } else {
                 paso1ModificarPortada(req.files, id, function (result) {
                     if( result == null){
-                        res.send("Error en la modificación");
+                        res.redirect("/publicaciones" +
+                            "?mensaje=Error en la modificación"+
+                            "&tipoMensaje=alert-danger ");
                     } else {
-                        res.send("Modificado");
+                        res.redirect("/publicaciones");
                     }
                 });
             }
